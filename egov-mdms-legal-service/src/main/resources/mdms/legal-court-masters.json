@@ -9,6 +9,13 @@
       "enrollmentNo": "DL/1234/2010",
       "fee": 50000,
       "active": true
+    },
+    {
+      "code": "PJV002",
+      "name": "Prajwal Kumar",
+      "enrollmentNo": "DL/1234/2025",
+      "fee": 10000,
+      "active": false
     }
   ],
 

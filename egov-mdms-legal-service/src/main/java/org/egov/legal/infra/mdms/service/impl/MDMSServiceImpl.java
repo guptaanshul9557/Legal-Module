@@ -115,7 +115,7 @@ public class MDMSServiceImpl {
 							prepareTenantMap(jsonMap);
 						} catch (Exception e) {
 							// TODO: handle exception
-							System.out.println("Error Occured while reading the file");
+							System.out.println("Error Occured while reading the file"); //change to log
 							e.printStackTrace();
 							 errorList.add(file.getAbsolutePath());
 						}
@@ -190,7 +190,7 @@ public class MDMSServiceImpl {
 	}
 
 	
-//	 It's loads legal-config.json
+//	 It's loads legal-master-config.json
 	public void readMdmsConfigFiles(String masterConfigUrl) throws Exception {
         Resource resource = resourceLoader.getResource(masterConfigUrl);
         InputStream inputStream = null;

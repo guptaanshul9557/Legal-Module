@@ -1,18 +1,18 @@
 {
-  "tenantId": "od",
+  "tenantId": "hr",
   "moduleName": "court-masters",
 
   "Advocate": [
     {
-      "code": "ADV001",
-      "name": "Ramesh Kumar",
+      "code": "ADV002",
+      "name": "Mr. X Kumar",
       "enrollmentNo": "DL/1234/2010",
-      "fee": 50000,
+      "fee": 40000,
       "active": true
     },
     {
-      "code": "PJV002",
-      "name": "Prajwal Kumar",
+      "code": "PJV004",
+      "name": "Prajwal",
       "enrollmentNo": "DL/1234/2025",
       "fee": 10000,
       "active": false
@@ -25,6 +25,12 @@
       "name": "High Court",
       "jurisdictionLevel": "STATE",
       "active": true
+    },
+    {
+      "code": "HC",
+      "name": "High Court",
+      "jurisdictionLevel": "STATE",
+      "active": false
     },
     {
       "code": "SC",
@@ -40,6 +46,12 @@
       "name": "Delhi High Court",
       "courtType": "HC",
       "active": true
+    },
+    {
+      "code": "HC_DEL",
+      "name": "Delhi High Court",
+      "courtType": "HC",
+      "active": false
     }
   ],
 
