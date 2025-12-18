@@ -62,6 +62,11 @@
       "active": true
     },
     {
+      "code": "CIV",
+      "name": "Civil Case",
+      "active": false
+    },
+    {
       "code": "CRL",
       "name": "Criminal Case",
       "active": true

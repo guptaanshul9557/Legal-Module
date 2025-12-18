@@ -11,6 +11,13 @@
       "active": true
     },
     {
+      "code": "ADV007",
+      "name": "Jacob Samal",
+      "enrollmentNo": "DL/1234/2018",
+      "fee": 50000,
+      "active": false
+    },
+    {
       "code": "PJV002",
       "name": "Prajwal Kumar",
       "enrollmentNo": "DL/1234/2025",

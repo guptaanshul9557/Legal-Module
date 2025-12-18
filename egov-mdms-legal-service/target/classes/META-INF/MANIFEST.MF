@@ -1,6 +1,0 @@
-Manifest-Version: 1.0
-Build-Jdk-Spec: 21
-Implementation-Title: egov-infra-mdms-service
-Implementation-Version: 1.3.3-SNAPSHOT
-Created-By: Maven Integration for Eclipse
-
