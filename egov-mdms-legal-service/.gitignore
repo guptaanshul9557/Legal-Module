@@ -1,10 +1,20 @@
-HELP.md
+# Documentation files (local only)
+CHANGELOG.md
+LOCALSETUP.md
+
+# Sample / local data
+sample/
+
+# Maven
 target/
-.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# STS (Spring Tool Suite)
+.apt_generated
 .classpath
 .factorypath
 .project
@@ -12,13 +22,13 @@ target/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
+# IntelliJ IDEA
 .idea
 *.iws
 *.iml
 *.ipr
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -28,5 +38,5 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+# VS Code
 .vscode/
