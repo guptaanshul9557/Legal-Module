@@ -1,0 +1,144 @@
+import React, { useMemo, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { OBPSIconSolidBg, EmployeeModuleCard } from "@upyog/digit-ui-react-components";
+import useBPAV2Inbox from "../../../../../libraries/src/hooks/obpsv2/useBPAV2Inbox";
+import { showHidingLinksForStakeholder, showHidingLinksForBPA } from "../../utils";
+import { useLocation } from "react-router-dom";
+
+const LMEmployeeHomeCard = () => {
+
+    const [totalCount, setTotalCount] = useState(0);
+    const [totalCountEs, setTotalCountEs] = useState(0);
+    
+    const { t } = useTranslation();
+    const location = useLocation()
+  
+    const tenantId = Digit.ULBService.getCurrentTenantId();
+    const stateCode = Digit.ULBService.getStateId();
+  
+    const stakeholderEmployeeRoles = [ { code: "BPAREG_DOC_VERIFIER", tenantId: stateCode }, { code: "BPAREG_APPROVER", tenantId: stateCode }];
+    const bpaEmployeeRoles = [ "BPA_FIELD_INSPECTOR", "BPA_NOC_VERIFIER", "BPA_APPROVER", "BPA_VERIFIER", "CEMP", "BPA_ENGINEER", "BPA_TOWNPLANNER"];
+
+    const checkingForStakeholderRoles = showHidingLinksForStakeholder(stakeholderEmployeeRoles);
+    const checkingForBPARoles = showHidingLinksForBPA(bpaEmployeeRoles);
+
+    const searchFormDefaultValues = {}
+  
+    const filterFormDefaultValues = {
+      moduleName: "bpa-services",
+      applicationStatus: "",
+      locality: [],
+      assignee: "ASSIGNED_TO_ALL",
+      applicationType: []
+    }
+    const tableOrderFormDefaultValues = {
+      sortBy: "",
+      limit: 10,
+      offset: 0,
+      sortOrder: "DESC"
+    }
+  
+    const formInitValue = {
+      filterForm: filterFormDefaultValues,
+      searchForm: searchFormDefaultValues,
+      tableForm: tableOrderFormDefaultValues
+    }
+
+    const searchFormDefaultValuesOfStakeholder = {}
+
+    const filterFormDefaultValuesOfStakeholder = {
+      moduleName: "OBPSV2",
+      // businessService: {code: "BPAREG", name:t("BPAREG")},
+      applicationStatus: "",
+      locality: [],
+      assignee: "ASSIGNED_TO_ALL"
+    }
+    const tableOrderFormDefaultValuesOfStakeholder = {
+      sortBy: "",
+      limit: 10,
+      offset: 0,
+      sortOrder: "DESC"
+    }
+  
+    const formInitValueOfStakeholder = {
+      filterForm: filterFormDefaultValuesOfStakeholder,
+      searchForm: searchFormDefaultValuesOfStakeholder,
+      tableForm: tableOrderFormDefaultValuesOfStakeholder
+    }
+  
+    const { isLoading: isInboxLoadingOfStakeholder, data: dataOfStakeholder } = useBPAV2Inbox({
+      tenantId,
+      filters: { ...formInitValueOfStakeholder },
+      config:{ enabled: !!checkingForStakeholderRoles }
+    });
+
+    const { isLoading: isInboxLoading, data : dataOfBPA } = useBPAV2Inbox({
+      tenantId,
+      filters: { ...formInitValue },
+      config:{ enabled: !!checkingForBPARoles }
+    });
+
+  useEffect(() => {
+    if (!isInboxLoading && !isInboxLoadingOfStakeholder) {
+      const bpaCount = dataOfBPA?.totalCount ? dataOfBPA?.totalCount : 0;
+      const stakeHolderCount = dataOfStakeholder?.totalCount ? dataOfStakeholder?.totalCount : 0;
+      setTotalCount(bpaCount);
+      setTotalCountEs(dataOfBPA?.nearingSlaCount||0 + dataOfStakeholder?.nearingSlaCount||0  )
+    }
+  }, [dataOfBPA, dataOfStakeholder]);
+
+  useEffect(()=>{
+    if (location.pathname === "/upyog-ui/employee"){
+      Digit.SessionStorage.del("OBPS.INBOX")
+      Digit.SessionStorage.del("STAKEHOLDER.INBOX")
+    }
+  },[location.pathname])
+    const propsForModuleCard = useMemo(()=>({
+      Icon: <OBPSIconSolidBg />,
+      moduleName:<div style={{ width: "200px", wordWrap: "break-word" }}>{t("MODULE_LM")}</div>,
+      kpis:[
+        // {
+        //     count: !isInboxLoading && !isInboxLoadingOfStakeholder ? totalCount : "",
+        //     label: t("TOTAL_FSM"),
+        //     link: `/upyog-ui/employee/obpsv2/inbox`
+        // },
+        {   count: "",
+            label: t("TOTAL_NEARING_SLA"),
+            link: `/upyog-ui/employee/lm/inbox`
+        }  
+      ],
+      links: [
+        
+        {
+          count: "" ,
+          label: t("ES_COMMON_LM_INBOX_LABEL"),
+          link: `/upyog-ui/employee/lm/inbox`,
+          field: "BPA"
+        },
+        {
+          label: t("ES_COMMON_SEARCH_APPLICATION"),
+          link: `/upyog-ui/employee/lm/search/application`
+        },
+        {
+            label: t("ES_COMMON_LM_CREATE"),
+            link: `/upyog-ui/employee/lm/create`
+          },
+      ]
+    }),[isInboxLoading, isInboxLoadingOfStakeholder, dataOfStakeholder, dataOfBPA, totalCount, totalCountEs]);
+
+    if (!checkingForStakeholderRoles) {
+      propsForModuleCard.links = propsForModuleCard.links.filter(obj => {
+        return obj.field !== 'STAKEHOLDER';
+      });
+    }
+
+    if (!checkingForBPARoles) {
+      propsForModuleCard.links = propsForModuleCard.links.filter(obj => {
+        return obj.field !== 'BPA';
+      });
+    }
+  
+    return checkingForBPARoles || checkingForStakeholderRoles ? <EmployeeModuleCard {...propsForModuleCard} /> : null
+  }
+
+  export default LMEmployeeHomeCard

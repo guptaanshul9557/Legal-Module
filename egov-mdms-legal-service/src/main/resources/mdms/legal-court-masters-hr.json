@@ -1,0 +1,91 @@
+{
+  "tenantId": "hr",
+  "moduleName": "court-masters",
+
+  "Advocate": [
+    {
+      "code": "ADV002",
+      "name": "Mr. X Kumar",
+      "enrollmentNo": "DL/1234/2010",
+      "fee": 40000,
+      "active": true
+    },
+    {
+      "code": "PJV004",
+      "name": "Prajwal",
+      "enrollmentNo": "DL/1234/2025",
+      "fee": 10000,
+      "active": false
+    }
+  ],
+
+  "CourtType": [
+    {
+      "code": "HC",
+      "name": "High Court",
+      "jurisdictionLevel": "STATE",
+      "active": true
+    },
+    {
+      "code": "HC",
+      "name": "High Court",
+      "jurisdictionLevel": "STATE",
+      "active": false
+    },
+    {
+      "code": "SC",
+      "name": "Supreme Court",
+      "jurisdictionLevel": "NATIONAL",
+      "active": true
+    }
+  ],
+
+  "Court": [
+    {
+      "code": "HC_DEL",
+      "name": "Delhi High Court",
+      "courtType": "HC",
+      "active": true
+    },
+    {
+      "code": "HC_DEL",
+      "name": "Delhi High Court",
+      "courtType": "HC",
+      "active": false
+    }
+  ],
+
+  "CaseType": [
+    {
+      "code": "CIV",
+      "name": "Civil Case",
+      "active": true
+    },
+    {
+      "code": "CIV",
+      "name": "Civil Case",
+      "active": false
+    },
+    {
+      "code": "CRL",
+      "name": "Criminal Case",
+      "active": true
+    }
+  ],
+
+  "PetitionType": [
+    {
+      "code": "WP",
+      "name": "Writ Petition",
+      "active": true
+    }
+  ],
+
+  "JudgementType": [
+    {
+      "code": "FINAL",
+      "name": "Final Judgment",
+      "active": true
+    }
+  ]
+}
